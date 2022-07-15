@@ -11,6 +11,16 @@ routes.use(cors());
 routes.get('/', async (req, res) => {
 
     res.send("ok");
+});
+
+routes.get('/posts', async (req, res) => {
+
+    res.send("ok");
+});
+
+routes.get('/cadastrar', async (req, res) => {
+
+    res.send("ok");
 })
 
 

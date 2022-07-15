@@ -1,10 +1,16 @@
 //poster 0.0.1 - loading modules
-const app = require("express")();
+const express = require("express")
+const app = express();
 const mongoose = require("mongoose");
 const routes = require("./Routes");
 const port = process.env.PORT || 5000;
 
+// configurar um diretorio de arquivos estaticos
+app.use(express.static(path.join(__dirname,"public")));
+
 //adicionar o arquivo de rotas
-app.use(routes);
+
+// adiministrador
+app.use('/adimin',routes);
 
 app.listen(port, ()=> console.log(`servidor rodando na porta : ${port}`));
