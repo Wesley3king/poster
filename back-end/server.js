@@ -6,7 +6,7 @@ const routes = require("./Routes");
 const port = process.env.PORT || 5000;
 
 // configurar um diretorio de arquivos estaticos
-app.use(express.static(path.join(__dirname,"public")));
+//app.use(express.static(path.join(__dirname,"public")));
 
 //adicionar o arquivo de rotas
 

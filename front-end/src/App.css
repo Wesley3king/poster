@@ -1,38 +1,115 @@
-.App {
-  text-align: center;
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html{
+  width: 98.1vw;
+  height: 98.1vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* header */
+.header{
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  background-color: black;
+  color: white;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.315);
+}
+.header_top{
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  background-color: black;
+  color: white;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.315);
+}
+.header_element_icon{
+  font-size: 30px;
+  margin: 5px;
+}
+.header_element h1{
+  font-family: 'Bebas Neue', cursive;
+}
+.link_conf{
+  color: white;
+  text-decoration: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* barra */
+.barra{
+  width: 80%;
+  height: 100vh;
+  position: fixed;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.829);
+  color: white;
+  transform: translate(-101%);
+  transition: transform 0.7s;
+}
+.barra.on{
+  transform: translate(0);
+
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.two_barra{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.close_barra{
+  font-size: 34px;
+  margin-left: 20px;
+}
+.barra_h1{
+  margin-right: 20px;
+}
+
+.barra_item{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  margin-top: 10px;
+}
+.barra_item > div{
+  width: 25%;
+  margin-left: 20px;
+}
+.barra_item > div > p{
+  font-size: 22px;
+  word-break: break-all;
+}
+
+.area{
+  background-color: rgba(0, 0, 0, 0.315);
+  position: relative;
+}
+.container{
+  width: 100%;
+  height: 47px;
+}
+.form{
+  width: 100%;
+  position: absolute;
+  color: rgb(14, 14, 14);
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

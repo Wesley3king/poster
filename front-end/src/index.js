@@ -2,16 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import Add from './Add';
 import reportWebVitals from './reportWebVitals';
-import { HashRouter, Router, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <HashRouter>
-      <Router>
+      <Routes>
         <Route path='/' element={<App />} />
-      </Router>
+        <Route path='/add' element={<Add />} />
+      </Routes>
     </HashRouter>
   </React.StrictMode>
 );
