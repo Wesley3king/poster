@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Barra from "./componentes/Barra";
 import Header from "./componentes/Header";
 import { AiFillHome } from "react-icons/ai";
@@ -7,9 +7,16 @@ import { Link } from "react-router-dom";
 
 export default function Add () {
 
-const send_form = (e) => {
-e.preventDefault();
-}
+    const [titulo, setTitulo] = useState("");
+    const [slug, setSlug] = useState("");
+
+    const send_form = (e) => {
+
+        e.preventDefault();
+
+        console.log(slug,"  -  ",titulo);
+
+    }
     return (
         <div>
             <Barra />
@@ -24,10 +31,11 @@ e.preventDefault();
 
                 <form className="form">
                     <label htmlFor="titulo">titulo: </label>
-                    <input type="text" name="titulo" id="inp" />
+                    <input type="text" name="titulo" id="inp" value={titulo} onChange={(e)=> setTitulo(e.target.value)}/>
 
                     <label htmlFor="titulo">slug: </label>
-                    <input type="text" name="titulo" id="inp" />
+                    <input type="text" name="titulo" id="inp" value={slug} onChange={(e)=> setSlug(e.target.value)}/>
+                    <button className="send" onClick={(e)=> send_form(e)}>cadastrar</button>
                 </form>
             </div>
         </div>
