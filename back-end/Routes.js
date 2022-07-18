@@ -12,6 +12,12 @@ routes.use(bodyParser.json());
 routes.use(cors());
 //routes.use(express.json());
 
+//teste de middleware
+routes.use((req, res, next)=> {
+	console.log("i'm a middleware!");
+	next();
+});
+
 routes.get('/', async (req, res) => {
 
     res.send("ok");
