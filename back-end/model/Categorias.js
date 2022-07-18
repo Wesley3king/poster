@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+require("../db");
 const Schema = mongoose.Schema;
 
 const Categoria = new Schema({

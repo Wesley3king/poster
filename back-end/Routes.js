@@ -2,9 +2,13 @@ const express = require("express");
 const routes = express.Router();
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+require("./model/Categorias");
+const Categoria = mongoose.model("categorias");
 
 routes.use(bodyParser.urlencoded({extended: true}));
 routes.use(bodyParser.json());
+
 routes.use(cors());
 //routes.use(express.json());
 
@@ -18,10 +22,21 @@ routes.get('/posts', async (req, res) => {
     res.send("ok");
 });
 
-routes.get('/cadastrar', async (req, res) => {
+routes.post('/categorias/add', async (req, res) => {
 
-    res.send("ok");
-})
+    console.log("dados : ", req.body);
+    let novaCategoria  = {
+        nome: req.body.nome,
+        slug: req.body.slug
+    };
+
+    new Categoria(novaCategoria).save()
+    .then(()=> res.send(true))
+    .catch((e)=> {
+        res.send(false);
+        console.log("Erro em categorias/add : ", e)
+    });
+});
 
 
 
