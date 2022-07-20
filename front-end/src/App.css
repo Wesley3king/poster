@@ -88,7 +88,7 @@ html{
   margin-top: 10px;
 }
 .barra_item > div{
-  width: 25%;
+  width: 35%;
   margin-left: 20px;
 }
 .barra_item > div > p{
@@ -147,4 +147,13 @@ html{
 .send{
   margin: 5px;
   padding: 3px 10px;
+}
+/* - categorias - */
+
+.main_categorias{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
 }

@@ -12,6 +12,8 @@ export default function Add () {
     const [slug, setSlug] = useState("");
     const [showMessage,setShowMessage] = useState(false);
     const [showMessageFail,setShowMessageFail] = useState(false);
+    const [showMessageValidate,setShowMessageValidate] = useState(false);
+    const [form_erros, setForm_erros] = useState([]);
 
     const send_form = (e) => {
 
@@ -23,7 +25,13 @@ export default function Add () {
             })
         .then((resposta)=> {
             console.log("resposta do servidor : ",resposta)
-            if (resposta.data) {
+            if (typeof resposta.data === "object") {
+                setForm_erros([...resposta.data["err"]]);
+
+                setShowMessageValidate(true);
+
+                setTimeout(()=> setShowMessageValidate(false), 7000);
+            }else if (resposta.data) {
                 setShowMessage(true);
 
                 setTimeout(()=> setShowMessage(false), 4000);
@@ -39,9 +47,11 @@ export default function Add () {
             console.log("Erro de conexão : ", e);
 
             setTimeout(()=> setShowMessageFail(false), 4000);
-        })
+        });
 
-    }
+    };
+
+
     return (
         <div>
             <Barra />
@@ -56,6 +66,7 @@ export default function Add () {
 
                 {showMessage ? <div className="message_post_added"><p>adicionado com sucesso!</p></div> : ""}
                 {showMessageFail ? <div className="message_post_failde"><p>houve uma falha ao adicicioar!</p></div> : ""}
+                {showMessageValidate ? form_erros.map( str => <div className="message_post_failde"><p>{str}</p></div>) : ""}
 
                 <form className="form">
                     <label htmlFor="titulo">titulo: </label>

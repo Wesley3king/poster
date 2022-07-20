@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import Add from './Add';
+import Categorias from './Categorias';
 import reportWebVitals from './reportWebVitals';
 import { HashRouter, Routes, Route } from "react-router-dom";
 
@@ -13,6 +14,7 @@ root.render(
       <Routes>
         <Route path='/' element={<App />} />
         <Route path='/add' element={<Add />} />
+        <Route path='/categorias' element={<Categorias />} />
       </Routes>
     </HashRouter>
   </React.StrictMode>

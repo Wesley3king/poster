@@ -1,5 +1,5 @@
 import React from "react";
-import { AiOutlineClose, AiFillHome } from "react-icons/ai";
+import { AiOutlineClose, AiFillHome, AiOutlineAppstore } from "react-icons/ai";
 import { VscAdd } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 
@@ -32,6 +32,14 @@ export default function Barra () {
                     </div>
                 </div>
             </Link>
+            <Link to="/categorias" className='link_conf'>
+                <div className="barra_item">
+                    <AiOutlineAppstore />
+                    <div>
+                        <p>categorias</p>
+                    </div>
+                </div>
+            </Link>
         </div>
     )
-}
+}//AiOutlineAppstore
