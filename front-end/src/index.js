@@ -4,20 +4,24 @@ import './index.css';
 import App from './App';
 import Add from './Add';
 import Categorias from './Categorias';
+import { Provider } from 'react-redux';
+import store from './store';
 import reportWebVitals from './reportWebVitals';
 import { HashRouter, Routes, Route } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <HashRouter>
-      <Routes>
-        <Route path='/' element={<App />} />
-        <Route path='/add' element={<Add />} />
-        <Route path='/categorias' element={<Categorias />} />
-      </Routes>
-    </HashRouter>
-  </React.StrictMode>
+  <Provider store={store}>
+    <React.StrictMode>
+      <HashRouter>
+        <Routes>
+          <Route path='/' element={<App />} />
+          <Route path='/add' element={<Add />} />
+          <Route path='/categorias' element={<Categorias />} />
+        </Routes>
+      </HashRouter>
+    </React.StrictMode>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

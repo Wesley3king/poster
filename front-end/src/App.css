@@ -157,3 +157,18 @@ html{
   align-items: center;
   color: white;
 }
+
+.categoria_item{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: baseline;
+  padding: 10px;
+  margin: 7px;
+  background-color: rgba(0, 0, 0, 0.596);
+  border-radius: 4px;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.658);
+}
+.categoria_item > p{
+  padding: 1px;
+}

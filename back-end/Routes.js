@@ -42,9 +42,10 @@ routes.use((req, res, next) => {
     next();
 });
 
-routes.get('/', async (req, res) => {
+routes.get('/categorias/get', async (req, res) => {
 
-    res.json({data: req.locals.sucess_msg});
+    console.log("here")
+    res.json(await Categoria.find());
 });
 
 routes.get('/posts', async (req, res) => {
