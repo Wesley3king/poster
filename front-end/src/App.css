@@ -159,11 +159,12 @@ html{
 }
 
 .categoria_item{
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: baseline;
-  padding: 10px;
+  padding: 20px;
   margin: 7px;
   background-color: rgba(0, 0, 0, 0.596);
   border-radius: 4px;
@@ -171,4 +172,21 @@ html{
 }
 .categoria_item > p{
   padding: 1px;
+}
+.edit_pencil_div{
+  position: absolute;
+  top: 5%;
+  left: 90%;
+  border: 1px solid rgba(255, 255, 255, 0.137);
+  border-radius: 5px;
+}
+.edit_pencil_div:hover, .edit_pencil_div:active{
+transition-duration: 1s;
+border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* - editar categoria - */
+.editar_categoria_title{
+  margin-top: 50px;
+  color: white;
 }

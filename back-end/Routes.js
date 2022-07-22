@@ -95,6 +95,38 @@ routes.post('/categorias/add', async (req, res) => {
     }
 });
 
+routes.post('/categorias/edit', (req, res) => {
+    // validação do formulario
+    let erros = [];
+
+    if (!req.body.nome || typeof req.body.nome === "undefined" || req.body.nome == null) {
+        erros.push("nome invalido");
+    };
+    if(!req.body.slug || typeof req.body.slug === "undefined" || req.body.slug == null) {
+        erros.push("slug invalido");
+    };
+    if (req.body.nome.length < 2) {
+        erros.push("nome da categoria é muito pequeno invalido");
+    };
+    if (req.body.slug.length < 2) {
+        erros.push("slug da categoria é muito pequeno invalido");
+    };
+
+    if (erros.length > 0) {
+        console.log("deu erro! ", erros);
+        res.json({ err: erros });
+    }else{
+        console.log(req.body);
+        Categoria.findOne({_id: req.body.id}).then( categoria => {
+            categoria.nome = req.body.nome;
+            categoria.slug = req.body.slug;
+
+            categoria.save().then(()=> res.send(true)).catch(()=> res.send(false));
+        });
+    }
+
+})
+
 
 
 module.exports = routes;

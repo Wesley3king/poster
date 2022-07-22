@@ -5,6 +5,7 @@ import App from './App';
 import Add from './Add';
 import Categorias from './Categorias';
 import { Provider } from 'react-redux';
+import EditCategoria from './pages/EditCategoria';
 import store from './store';
 import reportWebVitals from './reportWebVitals';
 import { HashRouter, Routes, Route } from "react-router-dom";
@@ -18,6 +19,7 @@ root.render(
           <Route path='/' element={<App />} />
           <Route path='/add' element={<Add />} />
           <Route path='/categorias' element={<Categorias />} />
+          <Route path='/categorias/edit' element={<EditCategoria />} />
         </Routes>
       </HashRouter>
     </React.StrictMode>
