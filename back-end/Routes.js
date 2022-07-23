@@ -95,6 +95,8 @@ routes.post('/categorias/add', async (req, res) => {
     }
 });
 
+//editar uma categoria
+
 routes.post('/categorias/edit', (req, res) => {
     // validação do formulario
     let erros = [];
@@ -123,9 +125,20 @@ routes.post('/categorias/edit', (req, res) => {
 
             categoria.save().then(()=> res.send(true)).catch(()=> res.send(false));
         });
-    }
+    };
 
-})
+});
+
+routes.post('/categorias/delete', async (req, res) => {
+    console.log(req.body);
+    
+    Categoria.remove({ _id : req.body.id})
+        .then(()=> res.send(true))
+        .catch((e)=>{
+            res.send(false);
+            console.log(e);
+        });
+});
 
 
 

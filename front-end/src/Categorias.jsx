@@ -26,7 +26,11 @@ function Categorias() {
   };
 
   const buildCategorias = () => {
-    console.log(categorias)
+    console.log(categorias);
+
+    if (categorias.length === 0) {
+      return <p>nenhuma categoria existente</p>;
+    };
     return categorias.map( obj => <Categoria key={obj["_id"]} id ={obj["_id"]} texto={obj.nome} slug={obj.slug} />)
   }
   

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineAppstore } from "react-icons/ai";
+import { VscTrash } from "react-icons/vsc";
 import Barra from "../componentes/Barra";
 import Header from "../componentes/Header";
 import { Link } from "react-router-dom";
@@ -14,6 +15,7 @@ export default function EditCategoria () {
     const [showMessageFail,setShowMessageFail] = useState(false);
     const [showMessageValidate,setShowMessageValidate] = useState(false);
     const [form_erros, setForm_erros] = useState([]);
+    const [deleteStatus, setDeleteStatus] = useState('');
 
     const edit_categoria_data = useSelector(state => {
         let data = {};
@@ -41,26 +43,42 @@ export default function EditCategoria () {
             console.log("resposta do servidor : ",resposta)
             if (typeof resposta.data === "object") {
                 setForm_erros([...resposta.data["err"]]);
-
                 setShowMessageValidate(true);
-
                 setTimeout(()=> setShowMessageValidate(false), 7000);
             }else if (resposta.data) {
                 setShowMessage(true);
-
                 setTimeout(()=> setShowMessage(false), 4000);
             }else {
                 setShowMessageFail(true);
-
                 setTimeout(()=> setShowMessageFail(false), 4000);
             }
         })
         .catch((e)=> {
             setShowMessageFail(true);
-
             console.log("Erro de conexão : ", e);
-
             setTimeout(()=> setShowMessageFail(false), 4000);
+        });
+    };
+
+    const deletarCategoria = () => {
+        axios.post("http://127.0.0.1:5200/adimin/categorias/delete",{
+                id: edit_categoria_data._id
+            })
+        .then((resposta)=> {
+            console.log("resposta do servidor : ",resposta);
+            if (resposta.data) {
+                setDeleteStatus("deletado com sucesso!");
+            
+                setTimeout(()=> window.location.assign("/#/categorias/"), 2000);
+            }else{
+                setDeleteStatus("falha ao deletar a categoria do servidor!");
+                setTimeout(()=> setDeleteStatus(""), 4000);
+            }
+        })
+        .catch((e)=> {
+            setDeleteStatus("falha ao deletar a categoria!");
+            console.log("Erro de conexão : ", e);
+            setTimeout(()=> setDeleteStatus(""), 4000);
         });
     }
     return (
@@ -82,6 +100,8 @@ export default function EditCategoria () {
                 {showMessageFail ? <div className="message_post_failde"><p>houve uma falha ao alterar!</p></div> : ""}
                 {showMessageValidate ? form_erros.map( str => <div className="message_post_failde"><p>{str}</p></div>) : ""}
 
+                { deleteStatus === "" ? "" : ( deleteStatus.indexOf("falha") !== -1 ? <div className="message_post_failde" style={{margin: "0"}}><p>{deleteStatus}</p></div> : <div className="message_post_added" style={{margin: "0"}}><p>{deleteStatus}</p></div>)}
+
                 <form className="form">
                     <label htmlFor="titulo">titulo: </label>
                     <input type="text" name="titulo" id="inp" value={titulo} onChange={(e)=> setTitulo(e.target.value)}/>
@@ -90,6 +110,11 @@ export default function EditCategoria () {
                     <input type="text" name="titulo" id="inp" value={slug} onChange={(e)=> setSlug(e.target.value)}/>
                     <button className="send" onClick={(e)=> send_form(e)}>cadastrar</button>
                 </form>
+
+                <section className="delete_categoria" onClick={()=> deletarCategoria()}>
+                    <VscTrash />
+                    <p>deletar categoria</p>
+                </section>
             </div>
         </>
     )
