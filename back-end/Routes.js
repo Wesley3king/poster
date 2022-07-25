@@ -4,10 +4,13 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 require("./model/Categorias");
+require("./model/Postagems")
 const Categoria = mongoose.model("categorias");
+const Postagems = mongoose.model("postagems")
 
 const session = require("express-session");
 const flash = require("connect-flash");
+const { Router } = require("express");
 
 //body parser
 routes.use(bodyParser.urlencoded({extended: true}));
@@ -138,6 +141,18 @@ routes.post('/categorias/delete', async (req, res) => {
             res.send(false);
             console.log(e);
         });
+});
+
+routes.get("/postagens", (req, res) => {
+    let data = Postagems.find();
+    res.send(true);
+});
+
+routes.post("/postagens/add", (req, res) => {
+    /*Categoria.find()
+    .then((categoria) => {
+        res.json({});
+    });*/
 });
 
 

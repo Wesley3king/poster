@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import Add from './Add';
+import AddPostagem from './pages/AddPostagem';
 import Categorias from './Categorias';
 import { Provider } from 'react-redux';
 import EditCategoria from './pages/EditCategoria';
@@ -17,6 +18,7 @@ root.render(
       <HashRouter>
         <Routes>
           <Route path='/' element={<App />} />
+          <Route path='/postagem/add' element={<AddPostagem />} />
           <Route path='/add' element={<Add />} />
           <Route path='/categorias' element={<Categorias />} />
           <Route path='/categorias/edit' element={<EditCategoria />} />

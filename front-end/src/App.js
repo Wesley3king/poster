@@ -11,7 +11,7 @@ function App() {
     <div>
       <Barra />
       <Header>
-         <Link to="/add" className='link_conf'>
+         <Link to="/postagem/add" className='link_conf'>
            <MdOutlineLibraryAdd />
          </Link>
       </Header>
