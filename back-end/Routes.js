@@ -8,6 +8,8 @@ require("./model/Postagems")
 const Categoria = mongoose.model("categorias");
 const Postagems = mongoose.model("postagems")
 
+let { validar } = require("./functions/valid");
+
 const session = require("express-session");
 const flash = require("connect-flash");
 const { Router } = require("express");
@@ -18,13 +20,6 @@ routes.use(bodyParser.json());
 
 //cors
 routes.use(cors());
-
-//teste de middleware
-routes.use((req, res, next)=> {
-	console.log("i'm a middleware!");
-	next();
-});
-
 
 //Sessão
 routes.use(session({
@@ -45,36 +40,18 @@ routes.use((req, res, next) => {
     next();
 });
 
+// obter categorias
 routes.get('/categorias/get', async (req, res) => {
-
-    console.log("here")
     res.json(await Categoria.find());
 });
 
-routes.get('/posts', async (req, res) => {
-
-    res.send("ok");
-});
-
+// adicionar categoria
 routes.post('/categorias/add', async (req, res) => {
 
     // validação do formulario
-    let erros = [];
+    let erros = validar(req.body.nome, req.body.slug);
 
-    if (!req.body.nome || typeof req.body.nome === "undefined" || req.body.nome == null) {
-        erros.push("nome invalido");
-    };
-    if(!req.body.slug || typeof req.body.slug === "undefined" || req.body.slug == null) {
-        erros.push("slug invalido");
-    };
-    if (req.body.nome.length < 2) {
-        erros.push("nome da categoria é muito pequeno invalido");
-    };
-    if (req.body.slug.length < 2) {
-        erros.push("slug da categoria é muito pequeno invalido");
-    };
-
-    if (erros.length > 0) {
+    if (erros) {
         console.log("deu erro! ", erros);
         res.json({ err: erros });
     }else{
@@ -99,25 +76,11 @@ routes.post('/categorias/add', async (req, res) => {
 });
 
 //editar uma categoria
-
 routes.post('/categorias/edit', (req, res) => {
     // validação do formulario
-    let erros = [];
+    let erros = validar(req.body.nome, req.body.slug);
 
-    if (!req.body.nome || typeof req.body.nome === "undefined" || req.body.nome == null) {
-        erros.push("nome invalido");
-    };
-    if(!req.body.slug || typeof req.body.slug === "undefined" || req.body.slug == null) {
-        erros.push("slug invalido");
-    };
-    if (req.body.nome.length < 2) {
-        erros.push("nome da categoria é muito pequeno invalido");
-    };
-    if (req.body.slug.length < 2) {
-        erros.push("slug da categoria é muito pequeno invalido");
-    };
-
-    if (erros.length > 0) {
+    if (erros) {
         console.log("deu erro! ", erros);
         res.json({ err: erros });
     }else{
@@ -132,6 +95,7 @@ routes.post('/categorias/edit', (req, res) => {
 
 });
 
+// deletar uma categforia
 routes.post('/categorias/delete', async (req, res) => {
     console.log(req.body);
     
@@ -143,16 +107,33 @@ routes.post('/categorias/delete', async (req, res) => {
         });
 });
 
+// receber as postagens
 routes.get("/postagens", (req, res) => {
     let data = Postagems.find();
     res.send(true);
 });
 
 routes.post("/postagens/add", (req, res) => {
-    /*Categoria.find()
-    .then((categoria) => {
-        res.json({});
-    });*/
+
+    // validação do nome e slug
+    let erros = validar(req.body.titulo, req.body.slug);
+
+    if (erros) {
+        console.log("deu erro! ", erros);
+        res.json({ err: erros });
+    }else{
+        const nova_postagem = {
+            ...req.body
+        }
+        console.log(nova_postagem);
+
+        new Postagems(nova_postagem).save()
+            .then(()=> res.send(true))
+            .catch((e)=> {
+                console.log('erro ao registrar o post',e);
+                res.send(false);
+            })
+    };
 });
 
 

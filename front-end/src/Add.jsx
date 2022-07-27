@@ -69,6 +69,7 @@ export default function Add () {
                 {showMessageValidate ? form_erros.map( str => <div className="message_post_failde"><p>{str}</p></div>) : ""}
 
                 <form className="form">
+                  <h2> adicionar categoria</h2>
                     <label htmlFor="titulo">titulo: </label>
                     <input type="text" name="titulo" id="inp" value={titulo} onChange={(e)=> setTitulo(e.target.value)}/>
 

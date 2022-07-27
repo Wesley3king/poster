@@ -205,3 +205,21 @@ border: 1px solid rgba(255, 255, 255, 0.5);
 .delete_categoria:hover{
   border: 1px solid rgb(153, 153, 153);
 }
+.area_postagem{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    height: auto;
+}
+.form_postagem{
+  width: 100%;
+  position: absolute;
+  color: white;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

@@ -32,39 +32,43 @@ export default function AddPostagem () {
     const send_form = (e) => {
 
         e.preventDefault();
+        if (dados.categoria === "none" || dados.categoria === "") {
+            setForm_erros(["categoria selecionada invalida!"]);
 
-        axios.post("http://127.0.0.1:5200/adimin/postagens/add",{
-                nome: dados.titulo,
-                descricão: dados.descrição,
-                slug: dados.slug,
-                conteudo: dados.conteudo
+            setShowMessageValidate(true);
+
+            setTimeout(()=> setShowMessageValidate(false), 7000);
+        }else{
+
+            axios.post("http://127.0.0.1:5200/adimin/postagens/add",{
+                ...dados
             })
-        .then((resposta)=> {
-            console.log("resposta do servidor : ",resposta)
-            if (typeof resposta.data === "object") {
-                setForm_erros([...resposta.data["err"]]);
+            .then((resposta)=> {
+                console.log("resposta do servidor : ",resposta)
+                if (typeof resposta.data === "object") {
+                    setForm_erros([...resposta.data["err"]]);
 
-                setShowMessageValidate(true);
+                    setShowMessageValidate(true);
 
-                setTimeout(()=> setShowMessageValidate(false), 7000);
-            }else if (resposta.data) {
-                setShowMessage(true);
+                    setTimeout(()=> setShowMessageValidate(false), 7000);
+                }else if (resposta.data) {
+                    setShowMessage(true);
 
-                setTimeout(()=> setShowMessage(false), 4000);
-            }else {
+                    setTimeout(()=> setShowMessage(false), 4000);
+                }else {
+                    setShowMessageFail(true);
+
+                    setTimeout(()=> setShowMessageFail(false), 4000);
+                }
+            })
+            .catch((e)=> {
                 setShowMessageFail(true);
 
+                console.log("Erro de conexão : ", e);
+
                 setTimeout(()=> setShowMessageFail(false), 4000);
-            }
-        })
-        .catch((e)=> {
-            setShowMessageFail(true);
-
-            console.log("Erro de conexão : ", e);
-
-            setTimeout(()=> setShowMessageFail(false), 4000);
-        });
-
+            });
+        }
     };
 
 
@@ -80,30 +84,31 @@ export default function AddPostagem () {
             <div className="container"></div>
             <div className="container"></div>
 
-            <div className="area">
+            <div className="area_postagem">
                 <h2>criar postagem</h2>
 
                 {showMessage ? <div className="message_post_added"><p>adicionado com sucesso!</p></div> : ""}
                 {showMessageFail ? <div className="message_post_failde"><p>houve uma falha ao adicicioar!</p></div> : ""}
                 {showMessageValidate ? form_erros.map( str => <div className="message_post_failde"><p>{str}</p></div>) : ""}
 
-                <form className="form">
+                <form className="form_postagem">
                     <label htmlFor="titulo">titulo: </label>
-                    <input type="text" name="titulo" id="inp" value={dados.titulo} onChange={(e)=> setDados({...dados,titulo: e.target.value})}/>
+                    <input type="text" name="titulo" id="inp" value={dados.titulo} onChange={(e)=> setDados({...dados,titulo: e.target.value})} required/>
 
                     <label htmlFor="titulo">descrição: </label>
-                    <input type="text" name="titulo" id="inp" value={dados.descrição} onChange={(e)=> setDados({...dados,descrição: e.target.value})}/>
+                    <input type="text" name="titulo" id="inp" value={dados.descrição} onChange={(e)=> setDados({...dados,descrição: e.target.value})} required/>
 
                     <label htmlFor="categoria">categoria: </label>
-                    <select name="categoria" id="categoria" value="0" onChange={(e)=> setDados({...dados, categoria: e.target.value})}>
+                    <select name="categoria" id="categoria" value={dados.categoria} onChange={(e)=> setDados({...dados, categoria: e.target.value})} required>
+                        <option value="none">select (not valid)</option>
                         {categorias.map( categoria => <option value={categoria._id}>{categoria.nome}</option>)}
                     </select>
 
                     <label htmlFor="slug">slug: </label>
-                    <input type="text" name="slug" id="inp" value={dados.slug} onChange={(e)=> setDados({...dados,slug: e.target.value})}/>
+                    <input type="text" name="slug" id="inp" value={dados.slug} onChange={(e)=> setDados({...dados,slug: e.target.value})} required/>
 
                     <label htmlFor="conteudo">conteudo: </label>
-                    <textarea name="conteudo" id="conteudo" cols="30" rows="10" value={dados.conteudo} onChange={(e)=> setDados({...dados,conteudo: e.target.value})}>
+                    <textarea name="conteudo" id="conteudo" cols="30" rows="10" value={dados.conteudo} onChange={(e)=> setDados({...dados,conteudo: e.target.value})} required>
                     </textarea>
                     <button className="send" onClick={(e)=> send_form(e)}>postar</button>
                 </form>
