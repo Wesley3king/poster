@@ -107,10 +107,13 @@ routes.post('/categorias/delete', async (req, res) => {
         });
 });
 
-// receber as postagens
-routes.get("/postagens", (req, res) => {
-    let data = Postagems.find();
-    res.send(true);
+// enviar as postagens
+routes.get("/postagens", async (req, res) => {
+    let data = await Postagems.find()
+    .populate("categoria").sort({data: "desc"})
+    .catch(console.log);
+    console.log(data)
+    res.json(data);
 });
 
 routes.post("/postagens/add", (req, res) => {
