@@ -140,8 +140,30 @@ routes.post("/postagens/add", (req, res) => {
 });
 
 routes.post('/postagens/edit', (req, res) => {
-    console.log(req.body);
-    res.send(true);
+
+    //validar
+    let erros = validar(req.body.titulo, req.body.slug);
+
+    if (erros) {
+        console.log("deu erro! ", erros);
+        res.json({ err: erros });
+    }else{
+
+        Postagems.findOne({_id: req.body._id})
+            .then(post => {
+                post.titulo = req.body.titulo;
+                post.slug = req.body.slug;
+                post.descrição = req.body.descrição;
+                post.categoria = req.body.categoria;
+                post.conteudo = req.body.conteudo;
+
+                post.save().then(()=> res.send(true)).catch(()=> res.send(false));
+            })
+            .catch((e)=> {
+                console.log('erro ao encontrar o post para altera-lo : ',e);
+                res.send(false);
+            })
+    };
 });
 
 

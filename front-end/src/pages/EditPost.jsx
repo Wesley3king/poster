@@ -8,11 +8,24 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCategoria } from "../store/ducks/categorias";
+import { fetchPosts } from '../store/ducks/posts';
 
 export default function EditPost () {
+
     const dispatch = useDispatch();
     const [dados, setDados] = useState({titulo: "", descrição: "", slug: "", conteudo: "", categoria: ""});
-    const categorias = useSelector( state => state.categorias)
+
+    const categorias = useSelector( state => state.categorias);
+    const post = useSelector( state => {
+            let data = {};
+            let hash = window.location.hash;
+            let hashCortado = hash.split("=");
+            state.posts.forEach(obj => obj._id === hashCortado[1] && (data = obj));
+            console.log(data);
+            //setDados(data);
+            return data;
+    });
+    //messages
     const [showMessage,setShowMessage] = useState(false);
     const [showMessageFail,setShowMessageFail] = useState(false);
     const [showMessageValidate,setShowMessageValidate] = useState(false);
@@ -25,9 +38,26 @@ export default function EditPost () {
             .then(res => dispatch(fetchCategoria(res.data)))
             .catch(console.log);
         };
+        if (post.length === 0 ) {
+            axios.get("http://127.0.0.1:5200/adimin/postagens")
+            .then(res => {
+                dispatch(fetchPosts(res.data));
+            })
+            .catch(console.log);
+        };
     };
 
     useEffect(()=> fetchCategoriasService(), []);
+    useEffect(()=> {
+        console.log(post.descrção)
+        setDados({titulo: post.titulo, slug: post.slug, conteudo: post.conteudo, descrição: post.descrição, categoria :post.categoria._id });
+        // setDados({...dados, slug: post.slug });
+        // setDados({...dados, conteudo: post.conteudo });
+        // setDados({...dados, descrção: post.descrição });
+        // setDados({...dados, categoria :post.categoria._id });
+
+
+    }, []);
 
     const send_form = (e) => {
 
@@ -40,8 +70,9 @@ export default function EditPost () {
             setTimeout(()=> setShowMessageValidate(false), 7000);
         }else{
 
-            axios.post("http://127.0.0.1:5200/adimin/postagens/add",{
-                ...dados
+            axios.post("http://127.0.0.1:5200/adimin/postagens/edit",{
+                ...dados,
+                _id: post._id,
             })
             .then((resposta)=> {
                 console.log("resposta do servidor : ",resposta)
