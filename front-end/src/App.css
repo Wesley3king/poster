@@ -6,6 +6,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 html{
   width: 98.1vw;
@@ -128,7 +129,7 @@ html{
 }
 .form{
   width: 100%;
-  position: absolute;
+  /* position: absolute; */
   color: white;
   margin-top: 250px;
   display: flex;
@@ -215,7 +216,7 @@ border: 1px solid rgba(255, 255, 255, 0.5);
 }
 .form_postagem{
   width: 100%;
-  position: absolute;
+  /* position: absolute; */
   color: white;
   margin-top: 100px;
   display: flex;
@@ -274,4 +275,9 @@ border: 1px solid rgba(255, 255, 255, 0.5);
 }
 .conteudo_post{
   margin-top: 5px;
+}
+.edit_post{
+  position: absolute;
+  top: 36px;
+  left: 96%;
 }

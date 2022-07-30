@@ -139,6 +139,11 @@ routes.post("/postagens/add", (req, res) => {
     };
 });
 
+routes.post('/postagens/edit', (req, res) => {
+    console.log(req.body);
+    res.send(true);
+});
+
 
 
 module.exports = routes;

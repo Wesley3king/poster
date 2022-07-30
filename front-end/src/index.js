@@ -7,6 +7,7 @@ import AddPostagem from './pages/AddPostagem';
 import Categorias from './Categorias';
 import { Provider } from 'react-redux';
 import EditCategoria from './pages/EditCategoria';
+import EditPost from './pages/EditPost';
 import store from './store';
 import reportWebVitals from './reportWebVitals';
 import { HashRouter, Routes, Route } from "react-router-dom";
@@ -22,6 +23,7 @@ root.render(
           <Route path='/add' element={<Add />} />
           <Route path='/categorias' element={<Categorias />} />
           <Route path='/categorias/edit' element={<EditCategoria />} />
+          <Route path='/postagem/edit' element={<EditPost />} />
         </Routes>
       </HashRouter>
     </React.StrictMode>
