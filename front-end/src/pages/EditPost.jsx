@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { AiOutlineAppstore } from "react-icons/ai";
+//import { AiOutlineAppstore } from "react-icons/ai";
 import { VscTrash } from "react-icons/vsc";
 import { AiFillHome } from "react-icons/ai";
 import Barra from "../componentes/Barra";
@@ -14,6 +14,7 @@ export default function EditPost () {
 
     const dispatch = useDispatch();
     const [dados, setDados] = useState({titulo: "", descrição: "", slug: "", conteudo: "", categoria: ""});
+    const [deleteStatus,setDeleteStatus] =useState("");
 
     const categorias = useSelector( state => state.categorias);
     const post = useSelector( state => {
@@ -49,14 +50,8 @@ export default function EditPost () {
 
     useEffect(()=> fetchCategoriasService(), []);
     useEffect(()=> {
-        console.log(post.descrção)
+        console.log(post._id)
         setDados({titulo: post.titulo, slug: post.slug, conteudo: post.conteudo, descrição: post.descrição, categoria :post.categoria._id });
-        // setDados({...dados, slug: post.slug });
-        // setDados({...dados, conteudo: post.conteudo });
-        // setDados({...dados, descrção: post.descrição });
-        // setDados({...dados, categoria :post.categoria._id });
-
-
     }, []);
 
     const send_form = (e) => {
@@ -102,6 +97,29 @@ export default function EditPost () {
         }
     };
 
+    const deletarPost = () => {
+        // http://127.0.0.1:5200/adimin/postagens/edit
+        axios.post("http://127.0.0.1:5200/adimin/postagens/delete",{
+                id: post._id
+            })
+        .then((resposta)=> {
+            console.log("resposta do servidor : ",resposta);
+            if (resposta.data) {
+                setDeleteStatus("deletado com sucesso!");
+            
+                setTimeout(()=> window.location.assign("/#/"), 2000);
+            }else{
+                setDeleteStatus("falha ao deletar o post do servidor!");
+                setTimeout(()=> setDeleteStatus(""), 4000);
+            }
+        })
+        .catch((e)=> {
+            setDeleteStatus("falha ao deletar o post!");
+            console.log("Erro de conexão : ", e);
+            setTimeout(()=> setDeleteStatus(""), 4000);
+        });
+    }
+
 
     return (
         <div>
@@ -121,6 +139,8 @@ export default function EditPost () {
                 {showMessage ? <div className="message_post_added"><p>editado com sucesso!</p></div> : ""}
                 {showMessageFail ? <div className="message_post_failde"><p>houve uma falha ao editar!</p></div> : ""}
                 {showMessageValidate ? form_erros.map( str => <div className="message_post_failde"><p>{str}</p></div>) : ""}
+
+                { deleteStatus === "" ? "" : ( deleteStatus.indexOf("falha") !== -1 ? <div className="message_post_failde" style={{margin: "0"}}><p>{deleteStatus}</p></div> : <div className="message_post_added" style={{margin: "0"}}><p>{deleteStatus}</p></div>)}
 
                 <form className="form_postagem">
                     <label htmlFor="titulo">titulo: </label>
@@ -143,7 +163,15 @@ export default function EditPost () {
                     </textarea>
                     <button className="send" onClick={(e)=> send_form(e)}>postar</button>
                 </form>
+
+
+                <section className="delete_categoria" onClick={()=> deletarPost()}>
+                    <VscTrash />
+                    <p>deletar post</p>
+                </section>
             </div>
+
+            
         </div>
     )
 }

@@ -12,7 +12,7 @@ let { validar } = require("./functions/valid");
 
 const session = require("express-session");
 const flash = require("connect-flash");
-const { Router } = require("express");
+//const { Router } = require("express");
 
 //body parser
 routes.use(bodyParser.urlencoded({extended: true}));
@@ -164,6 +164,17 @@ routes.post('/postagens/edit', (req, res) => {
                 res.send(false);
             })
     };
+});
+
+routes.post('/postagens/delete', (req, res) => {
+    let deleteId = req.body.id;
+
+    Postagems.remove({_id: deleteId})
+        .then(() => res.send(true))
+        .catch((e) => {
+            console.log("ERRO'ao deletar post: ",e);
+            res.send(false);
+        });
 });
 
 
