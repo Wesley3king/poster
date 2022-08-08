@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import HomePage from './app/home_page/HomePage';
 import App from './App';
 import Add from './Add';
 import AddPostagem from './pages/AddPostagem';
@@ -18,7 +19,8 @@ root.render(
     <React.StrictMode>
       <HashRouter>
         <Routes>
-          <Route path='/' element={<App />} />
+          <Route path='/' element={<HomePage />} />
+          <Route path='/postagem' element={<App />} />
           <Route path='/postagem/add' element={<AddPostagem />} />
           <Route path='/add' element={<Add />} />
           <Route path='/categorias' element={<Categorias />} />

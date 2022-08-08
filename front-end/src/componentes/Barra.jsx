@@ -28,7 +28,7 @@ export default function Barra () {
                 <div className="barra_item">
                     <VscAdd />
                     <div>
-                        <p>add new</p>
+                        <p>add new categoria</p>
                     </div>
                 </div>
             </Link>
@@ -37,6 +37,15 @@ export default function Barra () {
                     <AiOutlineAppstore />
                     <div>
                         <p>categorias</p>
+                    </div>
+                </div>
+            </Link>
+            <Link to="/postagem" className='link_conf'>
+                <div className="barra_item">
+                    <AiOutlineAppstore />
+                    {/* postagems icone deve ser buscado */}
+                    <div>
+                        <p>postagens</p>
                     </div>
                 </div>
             </Link>

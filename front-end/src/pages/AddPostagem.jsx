@@ -40,7 +40,7 @@ export default function AddPostagem () {
             setTimeout(()=> setShowMessageValidate(false), 7000);
         }else{
 
-            axios.post("http://127.0.0.1:5200/adimin/postagens/add",{
+            axios.post("http://127.0.0.1:5200/postagens/add",{
                 ...dados
             })
             .then((resposta)=> {

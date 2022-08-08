@@ -93,8 +93,8 @@ html{
   margin-left: 20px;
 }
 .barra_item > div > p{
-  font-size: 22px;
-  word-break: break-all;
+  font-size: 20px;
+  word-break: keep-all;
 }
 
 .area{
@@ -236,6 +236,7 @@ border: 1px solid rgba(255, 255, 255, 0.5);
   background-color: rgb(12, 12, 12);
   padding: 10px;
   margin: 10px;
+  border: 1px solid rgb(99, 99, 99);
   box-shadow: 2px 2px 3px rgb(12, 12, 12);
   position: relative;
 }

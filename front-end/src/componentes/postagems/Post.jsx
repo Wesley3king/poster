@@ -1,7 +1,7 @@
 import React from "react";
 import { RiPencilFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { VscTrash } from "react-icons/vsc";
+import './Post.css';
 
 export default function Post (props) {
 

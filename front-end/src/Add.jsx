@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import Barra from "./componentes/Barra";
 import Header from "./componentes/Header";
-import { AiFillHome } from "react-icons/ai";
+import { AiFillHome, AiOutlineAppstore } from "react-icons/ai";
+
 import { Link } from "react-router-dom";
 
 
@@ -56,8 +57,11 @@ export default function Add () {
         <div>
             <Barra />
             <Header >
-                <Link to="/" className='link_conf'>
+                {/* <Link to="/" className='link_conf'>
                     <AiFillHome />
+                </Link> */}
+                <Link to="/categorias" className='link_conf'>
+                    <AiOutlineAppstore />
                 </Link>
             </Header>
 

@@ -1,25 +1,17 @@
 const express = require("express");
 const routes = express.Router();
-const cors = require("cors");
-const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-require("./model/Categorias");
-require("./model/Postagems")
+require("../model/Categorias");
+require("../model/Postagems")
 const Categoria = mongoose.model("categorias");
 const Postagems = mongoose.model("postagems")
 
-let { validar } = require("./functions/valid");
+let { validar } = require("../functions/valid");
 
 const session = require("express-session");
 const flash = require("connect-flash");
 //const { Router } = require("express");
 
-//body parser
-routes.use(bodyParser.urlencoded({extended: true}));
-routes.use(bodyParser.json());
-
-//cors
-routes.use(cors());
 
 //Sessão
 routes.use(session({
